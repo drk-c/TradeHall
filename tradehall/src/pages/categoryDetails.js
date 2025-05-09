@@ -34,13 +34,6 @@ const CategoryDetails = () => {
             </div>
         </>
     );
-
-    return (
-        <>
-             <h2 className="page-title">Temp Category Details</h2>
-             <p>Temp category details.</p>
-        </>
-    );
 };
 
 export default CategoryDetails;

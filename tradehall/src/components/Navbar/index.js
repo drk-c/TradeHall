@@ -4,12 +4,18 @@ import './Navbar.css';
 
 function Navbar() {
     return (
-        <nav className="navbar">
-                <Link className="nav-link" to="/">Home</Link>
-                <Link className="nav-link" to="/categories">Categories</Link>
-                <Link className="nav-link" to="/products">Products</Link>
-                <Link className="nav-link" to="/cart">Cart</Link>
-        </nav>
+        <header className="navbar">
+            <div className="container">
+
+                <Link to="/" className="logo">TradeHall</Link>
+
+                <nav className="other-nav">
+                        <Link to="/categories">Categories</Link>
+                        <Link to="/products">Products</Link>
+                        <Link to="/cart">Cart</Link>
+                </nav>
+            </div>
+        </header>
     );
 };
 

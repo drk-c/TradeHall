@@ -8,6 +8,7 @@ import Products from "./pages/products";
 import ProductDetails from "./pages/productDetails";
 import Cart from "./pages/cart";
 import NotFound from "./pages/notFound";
+import Login from "./pages/login";
 import "./App.css"
 
 function App() {
@@ -21,9 +22,8 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
-
-              
           </Routes>
 
         <footer className="th-footer">

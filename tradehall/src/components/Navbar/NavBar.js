@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
+import Login from "../LoginButton/LoginButton.js";
 
 function Navbar() {
     return (
@@ -12,9 +13,9 @@ function Navbar() {
                     <Link to="/categories">Categories</Link>
                     <Link to="/products">Products</Link>
                     <Link to="/cart">Cart</Link>
+                    <Login />
                 </nav>
 
-                <Link to="/login" className="login-button">Login</Link>
             </div>
         </header>
     );

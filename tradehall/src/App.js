@@ -9,6 +9,7 @@ import ProductDetails from "./pages/productDetails";
 import Cart from "./pages/cart";
 import NotFound from "./pages/notFound";
 import Login from "./pages/login";
+import Signup from "./pages/signup";
 import "./App.css"
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<NotFound />} />
           </Routes>
 

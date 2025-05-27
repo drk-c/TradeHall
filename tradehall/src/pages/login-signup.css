@@ -1,4 +1,4 @@
-.login-container {
+.auth-container {
   max-width: 350px;
   margin: 60px auto;
   padding: 2rem;
@@ -8,13 +8,13 @@
   text-align: center;
 }
 
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-.login-form label {
+.auth-form label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -22,7 +22,7 @@
   color: #222;
 }
 
-.login-form input {
+.auth-form input {
   margin-top: 0.3rem;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -30,7 +30,7 @@
   width: 100%;
 }
 
-.login-form button {
+.auth-form button {
   padding: 0.7rem;
   background: #2563eb;
   color: #fff;
@@ -41,6 +41,11 @@
   transition: background 0.2s;
 }
 
-.login-form button:hover {
+.auth-form button:hover {
   background: #1d4ed8;
 } 
+
+.login-signup a {
+  color: #2563eb;
+  text-decoration: underline;
+}

@@ -13,8 +13,8 @@ function Navbar() {
                     <Link to="/categories">Categories</Link>
                     <Link to="/products">Products</Link>
                     <Link to="/cart">Cart</Link>
-                    <Login />
                 </nav>
+                <Login />
 
             </div>
         </header>

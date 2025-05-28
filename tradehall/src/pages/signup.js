@@ -7,10 +7,30 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // No signup logic yet
-    alert('Signup submitted!');
+
+    try {
+      const response = await fetch('http://localhost:8000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert('Signup successful!');
+        // Optionally redirect to login page
+      } else {
+        alert(data.message || 'Signup failed');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('Signup failed');
+    }
   };
 
   return (

@@ -22,5 +22,11 @@ export const productCategories = [
         name: "Clothing",
         slug: "clothing",
         image: "https://images.pexels.com/photos/102129/pexels-photo-102129.jpeg?auto=compress&cs=tinysrgb&w=900",
+    },
+    {
+        id: 5,
+        name: "Miscellaneous",
+        slug: "miscellaneous",
+        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=60",
     }
 ];

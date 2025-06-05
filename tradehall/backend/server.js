@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
+const productRoutes = require('./routes/productRoutes');
 
 const User = require('./models/User');
 const app = express();
@@ -12,6 +13,9 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use('/api/products', productRoutes);
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {

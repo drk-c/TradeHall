@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import './sell.css';
 import { productCategories } from '../data/productCategories';
 import { useListings } from '../contexts/ListingsContext';
+import LocationInput from '../components/LocationInput/LocationInput';
+import RadiusMap from '../components/RadiusMap/RadiusMap';
 
 const MAX_IMAGES = 10;
 
@@ -17,6 +19,7 @@ const Sell = () => {
         phone: '',
         images: []
     });
+    const [deliveryRadius, setDeliveryRadius] = useState(5);
     const [imagePreviews, setImagePreviews] = useState([]);
     const [dragActive, setDragActive] = useState(false);
     const [touched, setTouched] = useState({});
@@ -158,7 +161,13 @@ const Sell = () => {
                     </label>
                     <label>
                         Meetup Location
-                        <input type="text" name="location" value={form.location} onChange={handleChange} onBlur={handleBlur} required className={isInvalid('location') ? 'invalid' : ''} />
+                        <LocationInput 
+                            value={form.location} 
+                            onChange={handleChange} 
+                            onBlur={handleBlur} 
+                            className={isInvalid('location') ? 'invalid' : ''} 
+                            required 
+                        />
                     </label>
                 </div>
                 <div className="form-row">
@@ -179,6 +188,13 @@ const Sell = () => {
                         <input type="tel" name="phone" value={form.phone} onChange={handleChange} onBlur={handleBlur} />
                     </label>
                 </div>
+                
+                <RadiusMap 
+                    location={form.location} 
+                    radius={deliveryRadius} 
+                    onRadiusChange={setDeliveryRadius}
+                />
+                
                 <button type="submit" className="submit-btn">Submit Listing</button>
             </form>
         </div>

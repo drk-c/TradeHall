@@ -72,6 +72,24 @@ app.get('/profile', verifyToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// Update profile
+app.put('/profile', verifyToken, async (req, res) => {
+  try {
+    const { username, email } = req.body;
+
+    // Find and update user
+    const updatedUser = await User.findByIdAndUpdate(
+      req.userId,
+      { username, email },
+      { new: true, runValidators: true, context: 'query' }
+    ).select('-password');
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update profile' });
+  }
+});
 
 // Middleware to verify token
 function verifyToken(req, res, next) {
@@ -86,6 +104,7 @@ function verifyToken(req, res, next) {
     res.status(401).json({ message: 'Invalid token' });
   }
 }
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

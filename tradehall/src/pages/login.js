@@ -1,15 +1,32 @@
 import React, { useState } from 'react';
 import './login-signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // <-- for redirect after login
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // No authentication logic yet
-    alert('Login submitted!');
+
+    try {
+      const res = await axios.post('http://localhost:8000/login', {
+        username,
+        password
+      });
+
+      // Save the token
+      localStorage.setItem('token', res.data.token);
+
+      // Redirect to Profile Page
+      navigate('/profile');
+    } catch (err) {
+      console.error(err);
+      setError('Invalid username or password');
+    }
   };
 
   return (
@@ -34,6 +51,7 @@ function Login() {
             required
           />
         </label>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Login</button>
         <p className="login-signup">
           Don't have an account? <Link to="/signup">Sign up</Link>
@@ -43,4 +61,4 @@ function Login() {
   );
 }
 
-export default Login; 
+export default Login;

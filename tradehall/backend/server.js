@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
 const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const verifyToken = require('./middleware/verifyToken');
+
 
 const User = require('./models/User');
 const app = express();
@@ -15,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
 
 
 // Connect to MongoDB
@@ -91,6 +95,7 @@ app.put('/profile', verifyToken, async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // Middleware to verify token
 function verifyToken(req, res, next) {
   const token = req.headers['authorization'];
@@ -106,5 +111,7 @@ function verifyToken(req, res, next) {
 }
 
 
+=======
+>>>>>>> f6a44ad (verifyToken middleware updated to properly parse Bearer token)
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

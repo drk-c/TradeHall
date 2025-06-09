@@ -1,33 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useListings } from "../contexts/ListingsContext";
-
-const dummyProduct = {
-    title: "Sample Textbook",
-    description: "A great textbook for your course.",
-    price: "25.00",
-    category: "Textbooks",
-    location: "Campus Library",
-    email: "email@example.com",
-    images: [
-        "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=400&q=60"
-    ]
-};
 
 const ProductDetails = () => {
     const { id } = useParams();
-    const { getListingById } = useListings();
-    
-    // Try to get real listing first, fall back to dummy
-    const product = getListingById(id) || dummyProduct;
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`http://localhost:8000/api/products/${id}`);
+                if (!response.ok) {
+                    throw new Error('Product not found');
+                }
+                const data = await response.json();
+                setProduct(data);
+            } catch (error) {
+                console.error("Failed to fetch product:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (id) {
+            fetchProduct();
+        }
+    }, [id]);
+
+    if (loading) return <p>Loading product details...</p>;
+    if (!product) return <p>Product not found.</p>;
 
     return (
         <div className="product-details-container">
-            <h2 className="page-title">{product.title}</h2>
+            <h2 className="page-title">{product.name}</h2>
             <div className="product-details-main">
                 <div className="product-images">
                     {product.images.map((src, idx) => (
-                        <img key={idx} src={src} alt={`product ${idx+1}`} style={{ maxWidth: 200, maxHeight: 200, marginRight: 8 }} />
+                        <img key={idx} src={`http://localhost:8000${src}`} alt={`product ${idx+1}`} style={{ maxWidth: 200, maxHeight: 200, marginRight: 8 }} />
                     ))}
                 </div>
                 <div className="product-info">

@@ -10,7 +10,7 @@ const MAX_IMAGES = 10;
 const Sell = () => {
     const { addListing } = useListings();
     const [form, setForm] = useState({
-        title: '',
+        name: '',
         description: '',
         price: '',
         category: productCategories[0]?.name || '',
@@ -72,13 +72,13 @@ const Sell = () => {
         e.preventDefault();
         setSubmitted(true);
       
-        if (!form.title || !form.description || !form.price || !form.category || !form.location || !form.email || form.images.length === 0) {
+        if (!form.name || !form.description || !form.price || !form.category || !form.location || !form.email || form.images.length === 0) {
           return;
         }
       
         // Prepare FormData
         const formData = new FormData();
-        formData.append('title', form.title);
+        formData.append('name', form.name);
         formData.append('description', form.description);
         formData.append('price', form.price);
         formData.append('category', form.category);
@@ -90,16 +90,12 @@ const Sell = () => {
         });
       
         try {
-          const response = await fetch('http://localhost:8000/api/products/add', {
-            method: 'POST',
-            body: formData
-          });
-          const result = await response.json();
+          const result = await addListing(formData);
       
           if (result.success) {
             // Reset form
             setForm({
-              title: '',
+              name: '',
               description: '',
               price: '',
               category: productCategories[0]?.name || '',
@@ -162,7 +158,7 @@ const Sell = () => {
                 <div className="form-row">
                     <label>
                         Title
-                        <input type="text" name="title" value={form.title} onChange={handleChange} onBlur={handleBlur} required className={isInvalid('title') ? 'invalid' : ''} />
+                        <input type="text" name="name" value={form.name} onChange={handleChange} onBlur={handleBlur} required className={isInvalid('name') ? 'invalid' : ''} />
                     </label>
                     <label>
                         Price ($)

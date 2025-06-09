@@ -1,10 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Login from "../LoginButton/LoginButton.js";
+import ProfileButton from '../ProfileButton/ProfileButton.js';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const location = useLocation(); // this will re-render the component on every route change
+
+    useEffect(() => {
+        const checkAuth = async () => {
+          const token = localStorage.getItem('token');
+          if (!token) {
+            setIsLoggedIn(false);
+            console.log("no token");
+            return;
+          }
+      
+          try {
+            await axios.get('http://localhost:8000/profile', {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            setIsLoggedIn(true);
+          } catch (err) {
+            setIsLoggedIn(false);
+            console.log("invalid token");
+          }
+        };
+      
+        checkAuth();
+    }, [location]); // triggers useEffect whenever route changes
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -33,8 +61,9 @@ function Navbar() {
                     <Link to="/products">Sell</Link>
                     <Link to="/categories">Categories</Link>
                     <Link to="/cart">Cart</Link>
+                    {isLoggedIn ? <ProfileButton /> : <Login />}
                 </nav>
-                <Login />
+                
             </div>
         </header>
     );

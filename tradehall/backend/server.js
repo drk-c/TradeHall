@@ -95,23 +95,5 @@ app.put('/profile', verifyToken, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Middleware to verify token
-function verifyToken(req, res, next) {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(401).json({ message: 'Missing token' });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
-    next();
-  } catch {
-    res.status(401).json({ message: 'Invalid token' });
-  }
-}
-
-
-=======
->>>>>>> f6a44ad (verifyToken middleware updated to properly parse Bearer token)
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -7,6 +8,7 @@ function Profile() {
   const [formData, setFormData] = useState({ username: '', email: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,6 +40,11 @@ function Profile() {
     setEditing(!editing);
     setSuccess('');
     setError('');
+  };
+
+  const handleLogout = async (e) => {
+    localStorage.setItem('token', '');
+    navigate('/');
   };
 
   const handleSubmit = async (e) => {
@@ -102,6 +109,7 @@ function Profile() {
       )}
       {success && <p style={{ color: 'green' }}>{success}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="logout" onClick={handleLogout}>Logout</button>
     </div>
   );
 }

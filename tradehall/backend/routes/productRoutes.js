@@ -32,7 +32,7 @@ router.get('/category/:categoryName', async (req, res) => {
     const products = await Product.find({ category: req.params.categoryName });
     res.json(products);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch products by category' });
+    res.status(500).json({ message: 'Failed to fetch products by category', err });
   }
 });
 

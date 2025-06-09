@@ -21,7 +21,7 @@ function Navbar() {
           }
       
           try {
-            await axios.get('http://:8000/profile', {
+            await axios.get('http://localhost:8000/profile', {
               headers: { Authorization: `Bearer ${token}` }
             });
             setIsLoggedIn(true);

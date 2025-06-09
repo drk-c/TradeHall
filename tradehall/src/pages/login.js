@@ -7,7 +7,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // <-- for redirect after login
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +20,6 @@ function Login() {
 
       // Save the token
       localStorage.setItem('token', res.data.token);
-
-      // Redirect to Profile Page
       navigate('/');
     } catch (err) {
       console.error(err);

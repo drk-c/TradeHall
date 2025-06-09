@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './login-signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,16 @@ function Signup() {
   
       if (response.ok) {
         alert('Signup successful!');
-        // Optionally redirect to login page
+
+        //create a token
+        const res = await axios.post('http://localhost:8000/login', {
+          username,
+          password
+        });
+  
+        // Save the token and navigate to home page
+        localStorage.setItem('token', res.data.token);
+        navigate('/');
       } else {
         alert(data.message || 'Signup failed');
       }

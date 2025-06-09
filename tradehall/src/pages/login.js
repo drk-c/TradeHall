@@ -22,7 +22,7 @@ function Login() {
       localStorage.setItem('token', res.data.token);
 
       // Redirect to Profile Page
-      navigate('/profile');
+      navigate('/');
     } catch (err) {
       console.error(err);
       setError('Invalid username or password');

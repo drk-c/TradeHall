@@ -1,0 +1,86 @@
+.profile-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .profile-section label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .profile-section span {
+    margin-top: 0.3rem;
+    color: #444;
+    font-weight: normal;
+  }
+  
+  .profile-section input {
+    margin-top: 0.3rem;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .profile-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .profile-buttons button {
+    padding: 0.6rem 1rem;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .profile-buttons button:hover {
+    background-color: #357abd;
+  }
+  
+  .success {
+    color: green;
+    margin-top: 1rem;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
+
+  .profile-container .logout-button {
+    background-color: #e74c3c; /* Red color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    margin-top: 2rem; /* Space above logout button */
+    display: block;
+
+  }
+  
+.profile-container .logout-button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+  }
+  

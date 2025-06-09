@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './profile.css';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -19,8 +20,8 @@ function Profile() {
 
     axios.get('http://localhost:8000/profile', {
       headers: {
-  Authorization: `Bearer ${token}` // 
-}
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(res => {
         setUser(res.data);
@@ -54,7 +55,7 @@ function Profile() {
     try {
       const res = await axios.put('http://localhost:8000/profile', formData, {
         headers: {
-          Authorization: token
+          Authorization: `Bearer ${token}`
         }
       });
 
@@ -71,12 +72,13 @@ function Profile() {
   if (!user) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="profile-container">
       <h1>My Profile</h1>
-      {editing ? (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Username:
+  
+      <div className="profile-section">
+        <label>
+          <strong>Username:</strong>
+          {editing ? (
             <input
               type="text"
               name="username"
@@ -84,10 +86,14 @@ function Profile() {
               onChange={handleChange}
               required
             />
-          </label>
-          <br />
-          <label>
-            Email:
+          ) : (
+            <span>{user.username}</span>
+          )}
+        </label>
+  
+        <label>
+          <strong>Email:</strong>
+          {editing ? (
             <input
               type="email"
               name="email"
@@ -95,23 +101,29 @@ function Profile() {
               onChange={handleChange}
               required
             />
-          </label>
-          <br />
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={handleEditToggle}>Cancel</button>
-        </form>
-      ) : (
-        <div>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
+          ) : (
+            <span>{user.email}</span>
+          )}
+        </label>
+      </div>
+  
+      <div className="profile-buttons">
+        {editing ? (
+          <>
+            <button type="submit" onClick={handleSubmit}>Save Changes</button>
+            <button type="button" onClick={handleEditToggle}>Cancel</button>
+          </>
+        ) : (
           <button onClick={handleEditToggle}>Edit Profile</button>
-        </div>
-      )}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="logout" onClick={handleLogout}>Logout</button>
+        )}
+      </div>
+  
+      {success && <p className="success">{success}</p>}
+      {error && <p className="error">{error}</p>}
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
     </div>
   );
+  
 }
 
 export default Profile;

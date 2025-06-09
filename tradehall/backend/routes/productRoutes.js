@@ -1,6 +1,20 @@
 const express = require('express');
 const Product = require('../models/Product');
 const router = express.Router();
+const multer = require('multer');
+
+// Configure multer for image uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // upload destination folder
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
 
 // GET all products
 router.get('/', async (req, res) => {
@@ -9,6 +23,16 @@ router.get('/', async (req, res) => {
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch products' });
+  }
+});
+
+// GET products by category
+router.get('/category/:categoryName', async (req, res) => {
+  try {
+    const products = await Product.find({ category: req.params.categoryName });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch products by category' });
   }
 });
 
@@ -24,13 +48,30 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create new product
-router.post('/', async (req, res) => {
+router.post('/', upload.array('images', 10), async (req, res) => {
   try {
-    const newProduct = new Product(req.body);
+    const { name, description, price, category, location, email, phone } = req.body;
+    
+    // Create image URLs from the uploaded files
+    const images = req.files.map(file => `/uploads/${file.filename}`);
+
+    // Save to MongoDB
+    const newProduct = new Product({
+      name,
+      description,
+      price: parseFloat(price),
+      category,
+      location,
+      email,
+      phone,
+      images,
+    });
+
     await newProduct.save();
-    res.status(201).json(newProduct);
+    res.json({ success: true, product: newProduct });
   } catch (err) {
-    res.status(400).json({ error: 'Failed to create product' });
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

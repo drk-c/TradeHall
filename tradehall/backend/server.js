@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
-const productRoutes2 = require('./routes/productRoutes2');
+const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const verifyToken = require('./middleware/verifyToken');
 
@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use('/api/products', productRoutes2);
+app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 
 

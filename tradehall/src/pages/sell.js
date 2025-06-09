@@ -68,40 +68,59 @@ const Sell = () => {
         setTouched({ ...touched, [e.target.name]: true });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
-        // Check for any missing required fields
+      
         if (!form.title || !form.description || !form.price || !form.category || !form.location || !form.email || form.images.length === 0) {
-            return;
+          return;
         }
-        
-        // Convert images to URLs for storage (in real app, you'd upload to a server)
-        const imageUrls = imagePreviews.slice(); // Use the preview URLs for now
-        
-        // Add the listing to the global state
-        const newListing = addListing({
-            ...form,
-            images: imageUrls
+      
+        // Prepare FormData
+        const formData = new FormData();
+        formData.append('title', form.title);
+        formData.append('description', form.description);
+        formData.append('price', form.price);
+        formData.append('category', form.category);
+        formData.append('location', form.location);
+        formData.append('email', form.email);
+        formData.append('phone', form.phone);
+        form.images.forEach((image) => {
+          formData.append('images', image);
         });
-        
-        // Reset form
-        setForm({
-            title: '',
-            description: '',
-            price: '',
-            category: productCategories[0]?.name || '',
-            location: '',
-            email: '',
-            phone: '',
-            images: []
-        });
-        setImagePreviews([]);
-        setTouched({});
-        setSubmitted(false);
-        
-        alert(`Listing "${newListing.title}" submitted successfully!`);
-    };
+      
+        try {
+          const response = await fetch('http://localhost:8000/api/products/add', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+      
+          if (result.success) {
+            // Reset form
+            setForm({
+              title: '',
+              description: '',
+              price: '',
+              category: productCategories[0]?.name || '',
+              location: '',
+              email: '',
+              phone: '',
+              images: []
+            });
+            setImagePreviews([]);
+            setTouched({});
+            setSubmitted(false);
+      
+            alert(`Listing "${result.product.name}" submitted successfully!`);
+          } else {
+            alert('Failed to submit listing');
+          }
+        } catch (error) {
+          console.error('Error submitting listing:', error);
+          alert('Error submitting listing');
+        }
+      };
 
     return (
         <div className="sell-container sell-style">

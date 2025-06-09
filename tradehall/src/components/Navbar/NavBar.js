@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import './NavBar.css';
 import Login from "../LoginButton/LoginButton.js";
 import ProfileButton from '../ProfileButton/ProfileButton.js';
 import axios from 'axios';
@@ -21,7 +21,7 @@ function Navbar() {
           }
       
           try {
-            await axios.get('http://localhost:8000/profile', {
+            await axios.get('http://:8000/profile', {
               headers: { Authorization: `Bearer ${token}` }
             });
             setIsLoggedIn(true);

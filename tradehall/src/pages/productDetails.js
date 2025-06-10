@@ -37,7 +37,7 @@ const ProductDetails = () => {
             <div className="product-details-main">
                 <div className="product-images">
                     {product.images.map((src, idx) => (
-                        <img key={idx} src={`http://localhost:8000${src}`} alt={`product ${idx+1}`} />
+                        <img key={idx} src={`http://localhost:8000/api/products/image/${id}/${idx}`} alt={`product ${idx+1}`} />
                     ))}
                 </div>
                 <div className="product-info">

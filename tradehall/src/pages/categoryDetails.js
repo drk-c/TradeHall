@@ -40,7 +40,7 @@ const CategoryDetails = () => {
                 <div className="grid">
                     {categoryItems.map(item => (
                     <Link key={item._id} to={`/products/${item._id}`} className="card">
-                        <img src={item.images?.[0] ? `http://localhost:8000${item.images[0]}` : category.image} alt={item.name} />
+                        <img src={item.images?.[0] ? `http://localhost:8000/api/products/image/${item._id}/0` : category.image} alt={item.name} />
                         <div className="card-overlay">
                         <span className="card-title">{item.name}</span>
                         <span className="card-action">${item.price}</span>

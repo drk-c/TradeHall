@@ -4,18 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 
 // Configure multer for image uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // upload destination folder
-  },
-  filename: (req, file, cb) => {
-    // Clean filename: replace spaces and special characters with underscores
-    const cleanName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const uniqueName = Date.now() + '-' + cleanName;
-    cb(null, uniqueName);
-  }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // GET all products
@@ -49,13 +38,27 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// GET product image
+router.get('/image/:id/:index', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    const image = product.images[req.params.index];
+    res.contentType(image.contentType);
+    res.send(image.data);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch image' });
+  }
+});
+
 // POST create new product
 router.post('/', upload.array('images', 10), async (req, res) => {
   try {
     const { name, description, price, category, location, email, phone } = req.body;
     
-    // Create image URLs from the uploaded files
-    const images = req.files.map(file => `/uploads/${file.filename}`);
+    const images = req.files.map(file => ({
+      data: file.buffer,
+      contentType: file.mimetype
+    }));
 
     // Save to MongoDB
     const newProduct = new Product({

@@ -140,7 +140,7 @@ const Cart = () => {
                             <div key={item.productId?._id} className="cart-item">
                                 <div className="item-image">
                                     <img 
-                                        src={item.productId?.images?.[0] ? `http://localhost:8000${item.productId.images[0]}` : '/placeholder.jpg'} 
+                                        src={item.productId?.images?.[0] ? `http://localhost:8000/api/products/image/${item.productId?._id}/0` : '/placeholder.jpg'} 
                                         alt={item.productId?.name || 'Product'} 
                                     />
                                 </div>

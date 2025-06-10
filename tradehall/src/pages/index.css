@@ -9,7 +9,7 @@
   }
   
   .hero p {
-    font-size: 1.125rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
     color: #4b5563; /* gray‑600 */
   }
@@ -26,4 +26,100 @@
   
   .btn-primary:hover {
     background: #1d4ed8; /* blue‑700 */
+  }
+
+  /* Home Sections */
+  .home-section {
+    padding: 3rem 1rem;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  #about p {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Featured Categories */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .category-card {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px franchisingpx rgba(0, 0, 0, 0.15);
+  }
+
+  .category-card a {
+    text-decoration: none;
+    color: white;
+    display: block;
+  }
+
+  .category-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .category-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* How It Works */
+  .how-it-works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .step {
+    padding: 1.5rem;
+  }
+
+  .step-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .step h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }

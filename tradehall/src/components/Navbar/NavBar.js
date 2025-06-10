@@ -61,7 +61,7 @@ function Navbar() {
                 </form>
 
                 <nav className="other-nav">
-                    <Link to="/products">Sell</Link>
+                    <Link to="/sell">Sell</Link>
                     <Link to="/categories">Categories</Link>
                     <Link to="/cart" className="cart-link">
                         Cart

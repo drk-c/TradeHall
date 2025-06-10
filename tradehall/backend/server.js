@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -95,6 +96,59 @@ app.put('/profile', verifyToken, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to update profile' });
+  }
+});
+
+// Configure email transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Forgot password route
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'No account found with that email address' });
+    }
+
+    // For demo purposes, we'll send the password directly
+    // In production, you'd want to send a reset link instead
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'TradeHall - Your Password Recovery',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2563eb;">TradeHall Password Recovery</h2>
+          <p>Hello <strong>${user.username}</strong>,</p>
+          <p>You requested your password for your TradeHall account.</p>
+          <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="margin-top: 0;">Your Account Details:</h3>
+            <p><strong>Username:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Note:</strong> For security reasons, we cannot show your actual password. Please use the "Forgot Password" feature to reset it if needed.</p>
+          </div>
+          <p>If you didn't request this email, please ignore it.</p>
+          <p>Best regards,<br>The TradeHall Team</p>
+          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+          <p style="color: #6b7280; font-size: 12px;">This is an automated message from TradeHall - The campus marketplace for everything.</p>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ message: 'Password recovery email sent successfully' });
+
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    res.status(500).json({ error: 'Failed to send password recovery email' });
   }
 });
 

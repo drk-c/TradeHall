@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import './sell.css';
 import { productCategories } from '../data/productCategories';
 import { useListings } from '../contexts/ListingsContext';
+import { useNotification } from '../contexts/NotificationContext';
 import LocationInput from '../components/LocationInput/LocationInput';
 import RadiusMap from '../components/RadiusMap/RadiusMap';
 
@@ -9,6 +10,7 @@ const MAX_IMAGES = 10;
 
 const Sell = () => {
     const { addListing } = useListings();
+    const { showNotification } = useNotification();
     const [form, setForm] = useState({
         name: '',
         description: '',
@@ -61,6 +63,7 @@ const Sell = () => {
     const isInvalid = (field) => {
         if (!submitted && !touched[field]) return false;
         if (field === 'images') return form.images.length === 0;
+        if (field === 'category') return !form.category || form.category === '';
         return !form[field];
     };
 
@@ -72,7 +75,9 @@ const Sell = () => {
         e.preventDefault();
         setSubmitted(true);
       
-        if (!form.name || !form.description || !form.price || !form.category || !form.location || !form.email || form.images.length === 0) {
+        // Validate all required fields including proper category selection
+        if (!form.name || !form.description || !form.price || !form.category || form.category === '' || !form.location || !form.email || form.images.length === 0) {
+          showNotification('Please fill in all required fields and select a valid category.', 'error');
           return;
         }
       
@@ -108,13 +113,13 @@ const Sell = () => {
             setTouched({});
             setSubmitted(false);
       
-            alert(`Listing "${result.product.name}" submitted successfully!`);
+            showNotification(`Listing "${result.product.name}" submitted successfully!`, 'success');
           } else {
-            alert('Failed to submit listing');
+            showNotification('Failed to submit listing', 'error');
           }
         } catch (error) {
           console.error('Error submitting listing:', error);
-          alert('Error submitting listing');
+          showNotification('Error submitting listing', 'error');
         }
       };
 
@@ -169,7 +174,7 @@ const Sell = () => {
                     <label>
                         Category
                         <select name="category" value={form.category} onChange={handleChange} onBlur={handleBlur} required className={isInvalid('category') ? 'invalid' : ''}>
-                            <option value="">Choose a category</option>
+                            <option value="" disabled>Please choose a category</option>
                             {productCategories.map(cat => (
                                 <option key={cat.id} value={cat.name}>{cat.name}</option>
                             ))}
@@ -177,7 +182,7 @@ const Sell = () => {
                     </label>
                     <label>
                         Meetup Location
-                        <LocationInput 
+                        <LocationInput
                             value={form.location} 
                             onChange={handleChange} 
                             onBlur={handleBlur} 

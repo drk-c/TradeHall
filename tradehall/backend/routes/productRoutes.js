@@ -91,6 +91,22 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// PATCH mark product as sold/unsold
+router.patch('/:id/sold', async (req, res) => {
+  try {
+    const { sold } = req.body;
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id, 
+      { sold: sold }, 
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ error: 'Product not found' });
+    res.json({ success: true, product: updated, message: sold ? 'Product marked as sold' : 'Product marked as available' });
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to update product status' });
+  }
+});
+
 // DELETE a product
 router.delete('/:id', async (req, res) => {
   try {

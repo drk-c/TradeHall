@@ -177,6 +177,16 @@
   background-size: 1.1rem;
 }
 
+.sell-form select[name="category"]:invalid,
+.sell-form select[name="category"][value=""] {
+  color: #9ca3af;
+}
+
+.sell-form select[name="category"] option:disabled {
+  color: #9ca3af;
+  font-style: italic;
+}
+
 /* LocationInput integration - uniform with other inputs */
 .sell-form .location-input-container {
   width: 100%;

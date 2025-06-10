@@ -1,111 +1,145 @@
 .hero {
+    background-color: #f8f9fa;
+    padding: 4rem 2rem;
     text-align: center;
-    padding: 6rem 1rem;
-  }
-  
-  .hero h1 {
-    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    border-bottom: 1px solid #dee2e6;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
-  }
-  
-  .hero p {
+    color: #343a40;
+}
+
+.hero p {
     font-size: 1.2rem;
+    color: #6c757d;
     margin-bottom: 2rem;
-    color: #4b5563; /* gray‑600 */
-  }
+}
 
-  .btn-primary {
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-primary {
     display: inline-block;
-    background: #2563eb; /* blue‑600 */
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    transition: background 0.25s ease;
-  }
-  
-  .btn-primary:hover {
-    background: #1d4ed8; /* blue‑700 */
-  }
+    padding: 0.8rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
 
-  /* Home Sections */
-  .home-section {
-    padding: 3rem 1rem;
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Home Sections */
+.home-section {
+    padding: 4rem 2rem;
+}
+
+.home-section h2 {
     text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .section-title {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: #333;
-  }
+    color: #343a40;
+}
 
-  #about p {
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.bg-light {
+    background-color: #f8f9fa;
+}
+
+/* About Section */
+#about p {
+    text-align: center;
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
-  }
+    color: #495057;
+}
 
-  /* Featured Categories */
-  .categories-grid {
+.home-section .container {
+    display: block;
+}
+
+/* Featured Categories */
+.grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.5rem;
-    margin-top: 2rem;
-  }
+}
 
-  .category-card {
+.category-card {
     border-radius: 8px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px franchisingpx rgba(0, 0, 0, 0.15);
-  }
-
-  .category-card a {
     text-decoration: none;
     color: white;
-    display: block;
-  }
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .category-card img {
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}
+
+.category-card img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     display: block;
-  }
+}
 
-  .category-name {
+.category-card-name {
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
     padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     font-weight: bold;
-    text-align: center;
-  }
+    font-size: 1.2rem;
+}
 
-  /* How It Works */
-  .how-it-works-grid {
+/* How It Works Section */
+.how-it-works-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    margin-top: 2rem;
-  }
+    text-align: center;
+}
 
-  .step {
-    padding: 1.5rem;
-  }
+.step {
+    padding: 2rem;
+}
 
-  .step-icon {
+.step-number {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -116,10 +150,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
-  }
+    margin: 0 auto 1.5rem;
+}
 
-  .step h3 {
-    font-size: 1.25rem;
+.step h3 {
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
-  }
+    color: #343a40;
+}
+
+.step p {
+    color: #6c757d;
+    line-height: 1.5;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useNotification } from '../contexts/NotificationContext';
 import './cart.css';
@@ -9,11 +9,7 @@ const Cart = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { updateCartCount } = useNotification();
 
-    useEffect(() => {
-        checkAuthAndFetchCart();
-    }, []);
-
-    const checkAuthAndFetchCart = async () => {
+    const checkAuthAndFetchCart = useCallback(async () => {
         const token = localStorage.getItem('token');
         if (!token) {
             setIsLoggedIn(false);
@@ -41,7 +37,11 @@ const Cart = () => {
             setIsLoggedIn(false);
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        checkAuthAndFetchCart();
+    }, [checkAuthAndFetchCart]);
 
     const fetchCart = async () => {
         const token = localStorage.getItem('token');

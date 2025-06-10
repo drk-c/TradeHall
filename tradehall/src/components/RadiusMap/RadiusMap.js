@@ -42,25 +42,25 @@ const RadiusMap = ({ location, radius, onRadiusChange, className }) => {
         }
     };
 
-    const getStaticMapUrl = () => {
-        if (!coordinates) return null;
-        
-        // Using a simple static map service
-        const { lat, lon } = coordinates;
-        const zoom = getZoomLevel(radius);
-        
-        // OpenStreetMap static map (free alternative)
-        return `https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s-marker+3b82f6(${lon},${lat})/${lon},${lat},${zoom},0/300x200@2x?access_token=pk.eyJ1IjoidHJhZGVoYWxsIiwiYSI6ImNtNjRwYWxtYjAyY3Myc3EzZHFydzBlc2QifQ.placeholder`;
-    };
+    // const getStaticMapUrl = () => {
+    //     if (!coordinates) return null;
+    //     
+    //     // Using a simple static map service
+    //     const { lat, lon } = coordinates;
+    //     const zoom = getZoomLevel(radius);
+    //     
+    //     // OpenStreetMap static map (free alternative)
+    //     return `https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s-marker+3b82f6(${lon},${lat})/${lon},${lat},${zoom},0/300x200@2x?access_token=pk.eyJ1IjoidHJhZGVoYWxsIiwiYSI6ImNtNjRwYWxtYjAyY3Myc3EzZHFydzBlc2QifQ.placeholder`;
+    // };
 
-    const getZoomLevel = (radiusMiles) => {
-        // Convert radius to appropriate zoom level
-        if (radiusMiles <= 1) return 13;
-        if (radiusMiles <= 2) return 12;
-        if (radiusMiles <= 5) return 11;
-        if (radiusMiles <= 10) return 10;
-        return 9;
-    };
+    // const getZoomLevel = (radiusMiles) => {
+    //     // Convert radius to appropriate zoom level
+    //     if (radiusMiles <= 1) return 13;
+    //     if (radiusMiles <= 2) return 12;
+    //     if (radiusMiles <= 5) return 11;
+    //     if (radiusMiles <= 10) return 10;
+    //     return 9;
+    // };
 
     const handleRadiusChange = (e) => {
         const newRadius = parseInt(e.target.value);

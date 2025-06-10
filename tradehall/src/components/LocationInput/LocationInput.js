@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './LocationInput.css';
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJhZGVoYWxsIiwiYSI6ImNtNjRwYWxtYjAyY3Myc3EzZHFydzBlc2QifQ.placeholder'; // Replace with your token
+// const MAPBOX_TOKEN = 'pk.eyJ1IjoidHJhZGVoYWxsIiwiYSI6ImNtNjRwYWxtYjAyY3Myc3EzZHFydzBlc2QifQ.placeholder'; // Replace with your token
 
 const LocationInput = ({ value, onChange, onBlur, className, required }) => {
     const [suggestions, setSuggestions] = useState([]);
@@ -91,6 +91,9 @@ const LocationInput = ({ value, onChange, onBlur, className, required }) => {
             case 'Escape':
                 setShowSuggestions(false);
                 setSelectedIndex(-1);
+                break;
+            default:
+                // No action needed for other keys
                 break;
         }
     };

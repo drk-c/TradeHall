@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './login-signup.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { useNotification } from '../contexts/NotificationContext';
 import axios from 'axios';
 
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { showNotification } = useNotification();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,7 +26,7 @@ function Signup() {
       const data = await response.json();
   
       if (response.ok) {
-        alert('Signup successful!');
+        showNotification('Signup successful!', 'success');
 
         //create a token
         const res = await axios.post('http://localhost:8000/login', {
@@ -36,11 +38,11 @@ function Signup() {
         localStorage.setItem('token', res.data.token);
         navigate('/');
       } else {
-        alert(data.message || 'Signup failed');
+        showNotification(data.message || 'Signup failed', 'error');
       }
     } catch (error) {
       console.error('Signup error:', error);
-      alert('Signup failed');
+      showNotification('Signup failed', 'error');
     }
   };
 

@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import './NavBar.css';
 import Login from "../LoginButton/LoginButton.js";
 import ProfileButton from '../ProfileButton/ProfileButton.js';
+import { useNotification } from '../../contexts/NotificationContext';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { cartCount, updateCartCount } = useNotification();
     const location = useLocation(); // this will re-render the component on every route change
 
     useEffect(() => {
@@ -25,6 +27,7 @@ function Navbar() {
               headers: { Authorization: `Bearer ${token}` }
             });
             setIsLoggedIn(true);
+            updateCartCount(); // Update cart count when user is logged in
           } catch (err) {
             setIsLoggedIn(false);
             console.log("invalid token");
@@ -32,7 +35,7 @@ function Navbar() {
         };
       
         checkAuth();
-    }, [location]); // triggers useEffect whenever route changes
+    }, [location, updateCartCount]); // triggers useEffect whenever route changes
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -60,7 +63,10 @@ function Navbar() {
                 <nav className="other-nav">
                     <Link to="/products">Sell</Link>
                     <Link to="/categories">Categories</Link>
-                    <Link to="/cart">Cart</Link>
+                    <Link to="/cart" className="cart-link">
+                        Cart
+                        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                    </Link>
                     {isLoggedIn ? <ProfileButton /> : <Login />}
                 </nav>
                 

@@ -9,7 +9,8 @@ const ProductSchema = new mongoose.Schema({
   category: String,
   location: String,
   email: String,
-  phone: String
+  phone: String,
+  sold: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);

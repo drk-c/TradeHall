@@ -9,7 +9,9 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // upload destination folder
   },
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + file.originalname;
+    // Clean filename: replace spaces and special characters with underscores
+    const cleanName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const uniqueName = Date.now() + '-' + cleanName;
     cb(null, uniqueName);
   }
 });

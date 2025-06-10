@@ -57,7 +57,9 @@ a {
 .card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f3f4f6;
   transition: transform 0.5s ease;
 }
 
@@ -94,6 +96,63 @@ a {
   border-radius: 9999px;
   margin-top: 0.5rem;
   backdrop-filter: blur(4px);
+}
+
+/* Product Details ------------------------------------------- */
+.product-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.product-details-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.product-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.product-images img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  object-position: center;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-info p {
+  margin: 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.product-info p:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .product-details-main {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .product-images {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Utilities ------------------------------------------------- */

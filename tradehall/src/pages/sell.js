@@ -13,7 +13,7 @@ const Sell = () => {
         name: '',
         description: '',
         price: '',
-        category: productCategories[0]?.name || '',
+        category: '',
         location: '',
         email: '',
         phone: '',
@@ -98,7 +98,7 @@ const Sell = () => {
               name: '',
               description: '',
               price: '',
-              category: productCategories[0]?.name || '',
+              category: '',
               location: '',
               email: '',
               phone: '',
@@ -169,6 +169,7 @@ const Sell = () => {
                     <label>
                         Category
                         <select name="category" value={form.category} onChange={handleChange} onBlur={handleBlur} required className={isInvalid('category') ? 'invalid' : ''}>
+                            <option value="">Choose a category</option>
                             {productCategories.map(cat => (
                                 <option key={cat.id} value={cat.name}>{cat.name}</option>
                             ))}
